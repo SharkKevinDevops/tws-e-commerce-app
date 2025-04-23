@@ -1,15 +1,14 @@
-@Library('shared') _
+@Library('Shared') _
 
 pipeline {
     agent any
     
     environment {
         // Update the main app image name to match the deployment file
-        DOCKER_IMAGE_NAME = 'tausif131088/easyshop-app'
-        DOCKER_MIGRATION_IMAGE_NAME = 'tausif131088/easyshop-migration'
+        DOCKER_IMAGE_NAME = 'kevindevops86/easyshop-app'
+        DOCKER_MIGRATION_IMAGE_NAME = 'kevindevops86/easyshop-migration'
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
         GITHUB_CREDENTIALS = credentials('github-credentials')
-        GIT_REPO ="https://github.com/Tausif1310/tws-e-commerce-app.git"
         GIT_BRANCH = "master"
     }
     
@@ -25,7 +24,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    clone(env.GIT_REPO,env.GIT_BRANCH)
+                    clone("https://github.com/SharkKevinDevops/tws-e-commerce-app","master")
                 }
             }
         }
@@ -115,8 +114,8 @@ pipeline {
                         imageTag: env.DOCKER_IMAGE_TAG,
                         manifestsPath: 'kubernetes',
                         gitCredentials: 'github-credentials',
-                        gitUserName: 'Jenkins CI',
-                        gitUserEmail: 'taushifmulla@gmail.com'
+                        gitUserName: 'SharkKevinDevops',
+                        gitUserEmail: 'phuccloud86@gmail.com'
                     )
                 }
             }
